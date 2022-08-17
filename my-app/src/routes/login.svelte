@@ -1,4 +1,13 @@
-
+    <script>
+      import {login} from "../lib/dataFunc.js";
+      let firstName = '';
+      let lastName = '';
+      let emailLogin = '';
+      let emailSignUp = '';
+      let passwordLogin = '';
+      let passwordSignUp = '';
+      console.log(firstName);
+    </script>
 
   
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
@@ -72,12 +81,14 @@
           </div>
           <div class="formcontainer">
           <div class="container">
-            <label for="uname"><strong>Username</strong></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <label for="uname"><strong>First Name</strong></label>
+            <input bind:value={firstName} type="text" placeholder="Enter First Name" name="FName" required>
+            <label for="uname"><strong>Last Name</strong></label>
+            <input bind:value={lastName} type="text" placeholder="Enter Last Name" name="LName" required>
             <label for="mail"><strong>E-mail</strong></label>
-            <input type="text" placeholder="Enter E-mail" name="mail" required>
+            <input bind:value={emailSignUp} type="text" placeholder="Enter E-mail" name="mail" required>
             <label for="psw"><strong>Password</strong></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input bind:value={passwordSignUp} type="password" placeholder="Enter Password" name="psw" required>
           </div>
           <button type="submit"><strong>SIGN UP</strong></button>
       
@@ -87,17 +98,17 @@
         </form>
       </body>
       <body>
-        <form action="/action_page.php">
+        <form>
           <h1>LOGIN</h1>
           <div class="formcontainer">
           <hr/>
           <div class="container">
             <label for="uname"><strong>Username</strong></label>
-            <input type="text" placeholder="Enter Username" name="uname" required>
+            <input bind:value={emailLogin} type="text" placeholder="Enter Username" name="uname" required>
             <label for="psw"><strong>Password</strong></label>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input bind:value={passwordLogin} type="password" placeholder="Enter Password" name="psw" required>
           </div>
-          <button type="submit">Login</button>
+          <button on:click="{login([emailLogin,passwordLogin])}" type="submit">Login</button>
          
         </form>
       </body>

@@ -67,3 +67,23 @@ export async function fetchOtherData(name){
   console.log(data);
   return data;
 }
+
+
+export async function  login({email, password}) {
+  try {
+    const response = await fetch('https://jansafar-2022-07-19.herokuapp.com/v1/auth/login', {
+      method: 'POST', body:
+          JSON.stringify({
+              email,
+              password
+          })
+  }); 
+  const {firstName, lastName, token} = response;
+  console.log(response);
+  return {firstName, lastName, token}
+  } catch(error){
+  console.log(error);
+    }
+    
+  } 
+  
