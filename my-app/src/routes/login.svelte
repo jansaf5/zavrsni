@@ -1,5 +1,5 @@
     <script>
-      import {login} from "../lib/dataFunc.js";
+      import {login,register} from "../lib/dataFunc.js";
       let firstName = '';
       let lastName = '';
       let emailLogin = '';
@@ -74,11 +74,9 @@
   
   <div class="forms">
       <body>
-        <form action="/action_page.php">
+        <form form on:submit|preventDefault={register(emailSignUp,passwordSignUp,firstName,lastName)}>
           <h1>SIGN UP</h1>
-          <div class="icon">
-            <i class="fas fa-user-circle"></i>
-          </div>
+          
           <div class="formcontainer">
           <div class="container">
             <label for="uname"><strong>First Name</strong></label>
@@ -98,7 +96,7 @@
         </form>
       </body>
       <body>
-        <form>
+        <form form on:submit|preventDefault={login(emailLogin,passwordLogin)}>
           <h1>LOGIN</h1>
           <div class="formcontainer">
           <hr/>
@@ -108,7 +106,7 @@
             <label for="psw"><strong>Password</strong></label>
             <input bind:value={passwordLogin} type="password" placeholder="Enter Password" name="psw" required>
           </div>
-          <button on:click="{login([emailLogin,passwordLogin])}" type="submit">Login</button>
+          <button type="submit">Login</button>
          
         </form>
       </body>
