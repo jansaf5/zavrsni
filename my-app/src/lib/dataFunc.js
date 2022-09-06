@@ -1,4 +1,4 @@
-
+import axios from 'axios';
  export async function  fetchPriceData(name, days) {
 
     const dataPromise = await fetch("https://api.coingecko.com/api/v3/coins/" + name + "/market_chart?vs_currency=usd&days=" + days + "&interval=daily");
@@ -70,20 +70,49 @@ export async function fetchOtherData(name){
 
 
 export async function  login({email, password}) {
+  
   try {
-    const response = await fetch('https://jansafar-2022-07-19.herokuapp.com/v1/auth/login', {
-      method: 'POST', body:
-          JSON.stringify({
-              email,
-              password
-          })
-  }); 
+    post('https://jansafar-2022-07-19.herokuapp.com/v1/auth/login');
   const {firstName, lastName, token} = response;
   console.log(response);
   return {firstName, lastName, token}
-  } catch(error){
+} catch(error){
   console.log(error);
-    }
-    
-  } 
+    } 
+  }
+
+export async function  register({email,password ,firstName,lastName}) {
   
+    try {
+      axios.post('https://jansafar-2022-07-19.herokuapp.com/auth/register');
+    const {firstName, lastName, token} = response;
+    console.log(response);
+    return {firstName, lastName, token}
+  } catch(error){
+    console.log(error);
+      } 
+    }
+
+export async function addFavourite({string}) {
+  
+      try {
+        axios.post('https://jansafar-2022-07-19.herokuapp.com/favourite');
+      const {firstName, lastName, token} = response;
+      console.log(response);
+      return {firstName, lastName, token}
+    } catch(error){
+      console.log(error);
+        } 
+      }
+     
+export async function removeFavourite({string}) {
+  
+        try {
+          axios.delete('https://jansafar-2022-07-19.herokuapp.com/favourite');
+        const {firstName, lastName, token} = response;
+        console.log(response);
+        return {firstName, lastName, token}
+      } catch(error){
+        console.log(error);
+          } 
+        }

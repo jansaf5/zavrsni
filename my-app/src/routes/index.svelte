@@ -11,14 +11,15 @@
     let marketPrice=fetchPriceData(name,days);
     let marketVol=fetchVolData(name,days);
     let marketData= fetchOtherData(name);
+    
 </script>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <a href="/login">Jump to login</a>
 <div class="topnav">
   <a class="active" href="#home">Home</a>
-  <a href="#news">News</a>
-  <a href="#contact">Contact</a>
-  <a href="#about">About</a>
+  
 </div>
 
 
@@ -33,6 +34,12 @@
 
   <div class="title">
     <p>Currently looking at {name} in the last {days} days</p>
+    <div class="icon">
+      <i class="fa-regular fa-star"></i>
+    </div>
+    <div class="icon">
+      <i class="fa-regular fa-trash-can"></i>
+    </div>
   </div>
 
 <div class="charts">
@@ -90,6 +97,7 @@
     display: flex;
     align-content: center;
     justify-content: center;
+    padding-left: 200px;
   }
   .charts{
     margin-top: 10px;
@@ -155,4 +163,12 @@
   color: white;
 }
 
+
+
+.icon {
+      font-size: 110px;
+      display: flex;
+      justify-content: center;
+      color: #4286f4;
+}
 </style>
