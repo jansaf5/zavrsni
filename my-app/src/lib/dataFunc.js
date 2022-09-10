@@ -1,6 +1,5 @@
 import axios from 'axios';
  export async function  fetchPriceData(name, days) {
-
     const dataPromise = await fetch("https://api.coingecko.com/api/v3/coins/" + name + "/market_chart?vs_currency=usd&days=" + days + "&interval=daily");
     const market = await dataPromise.json();
     let temp= market.prices;
@@ -14,14 +13,10 @@ import axios from 'axios';
     console.log(data.prices);
     console.log(data.dates);
     return data;
-
-
-
   }
 
   
   export async function  fetchVolData(name, days) {
-
     const dataPromise = await fetch("https://api.coingecko.com/api/v3/coins/" + name + "/market_chart?vs_currency=usd&days=" + days + "&interval=daily");
     const market = await dataPromise.json();
     let temp= market.total_volumes;
@@ -35,9 +30,6 @@ import axios from 'axios';
     console.log(data.volume);
     console.log(data.dates);
     return data;
-
-
-
   }
 
   export function timeConverter(UNIX_timestamp) {
@@ -81,17 +73,21 @@ export async function  login({email, password}) {
     } 
   }
 
-export async function  register({email,password ,firstName,lastName}) {
-  
+  export const register = async ({ email, password, firstName, lastName }) => {
     try {
-      axios.post('https://jansafar-2022-07-19.herokuapp.com/auth/register');
-    const {firstName, lastName, token} = response;
-    console.log(response);
-    return {firstName, lastName, token}
-  } catch(error){
-    console.log(error);
-      } 
+        axios.post("https://cors-anywhere.herokuapp.com/https://jansafar-2022-07-19.herokuapp.com/auth/register", {
+            email,
+            password,
+            firstName,
+            lastName
+        });
+        // const { firstName, lastName, token } = response;
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.log(error);
     }
+}
 
 export async function addFavourite({string}) {
   
@@ -116,3 +112,6 @@ export async function removeFavourite({string}) {
         console.log(error);
           } 
         }
+
+
+        //https://jansafar-2022-07-19.herokuapp.com/auth/register

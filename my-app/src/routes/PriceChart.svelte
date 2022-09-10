@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto/auto.js';
-	export let prices,dates;
+	export let prices,dates,type;
 	
 	let portfolio;
 	const data = {
@@ -17,7 +17,7 @@
 		  ]
 	  };
 	  const config = {
-		  type: 'line',
+		  type: type,
 		  data: data,
 		  options: {
 			  borderRadius: '30',
@@ -37,8 +37,8 @@
 					  }
 				  },
 				  title: {
-					  display: false,
-					  text: 'My Personal Portfolio'
+					  display: false
+					  
 				  }
 			  }
 		  }

@@ -6,47 +6,61 @@
 
 
 
-    let name="bitcoin"
-    let days=30;
+    var name="bitcoin"
+    var days=30
     let marketPrice=fetchPriceData(name,days);
     let marketVol=fetchVolData(name,days);
     let marketData= fetchOtherData(name);
+
+
+    function newInput() {
+    name=document.getElementById("textName").value
+    days=document.getElementById("textDays").value
+    marketPrice=fetchPriceData(name,days);
+    marketVol=fetchVolData(name,days);
+    marketData= fetchOtherData(name);
+    
+  
+}
+
+
     
 </script>
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
 <a href="/login">Jump to login</a>
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
+
+  <form form on:submit|preventDefault={newInput}>
+    
+      <input id="textName" value={name}>
+      <input id="textDays" type=number value={days} min=0 max=90>
+      <input type="submit" name="aaa" id="aaa">
+  </form>
   
-</div>
+  
+  
 
 
 
-<div class="sidenav">
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#clients">Clients</a>
-    <a href="#contact">Contact</a>
+
+
+
+  <div class="sidenav">
+    
     <Fav coin={name}></Fav>
-  </div>
+   </div>
 
   <div class="title">
     <p>Currently looking at {name} in the last {days} days</p>
-    <div class="icon">
-      <i class="fa-regular fa-star"></i>
-    </div>
-    <div class="icon">
-      <i class="fa-regular fa-trash-can"></i>
-    </div>
+    
   </div>
 
 <div class="charts">
 {#await marketPrice}
     <Placeholder></Placeholder>
 {:then marketPrice}
-    <PriceChart prices={marketPrice.prices} dates={marketPrice.dates}/>
+    <PriceChart prices={marketPrice.prices} dates={marketPrice.dates} type={"line"}/>
 {:catch error}
     <Placeholder></Placeholder>
 {/await}
@@ -54,7 +68,7 @@
 {#await marketVol}
     <Placeholder></Placeholder>
 {:then marketVol}
-    <PriceChart prices={marketVol.volume} dates={marketVol.dates}/>
+    <PriceChart prices={marketVol.volume} dates={marketVol.dates} type={"bar"}/>
 {:catch error}
     <Placeholder></Placeholder>
 {/await}
@@ -137,7 +151,8 @@
 .topnav {
   background-color: #333;
   overflow: hidden;
-  
+  display: flex;
+  flex-direction: row-reverse;
   
 }
 
@@ -163,12 +178,10 @@
   color: white;
 }
 
-
-
-.icon {
-      font-size: 110px;
-      display: flex;
-      justify-content: center;
-      color: #4286f4;
+.title p{
+  text-transform: capitalize;
 }
+
+label { display: flex }
+	input, p { margin: 6px }
 </style>

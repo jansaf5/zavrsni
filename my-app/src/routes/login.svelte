@@ -30,12 +30,7 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
       }
-      .icon {
-      font-size: 110px;
-      display: flex;
-      justify-content: center;
-      color: #4286f4;
-      }
+      
       button {
       background-color: #4286f4;
       color: white;
@@ -101,8 +96,8 @@
           <div class="formcontainer">
           <hr/>
           <div class="container">
-            <label for="uname"><strong>Username</strong></label>
-            <input bind:value={emailLogin} type="text" placeholder="Enter Username" name="uname" required>
+            <label for="emaill"><strong>Email</strong></label>
+            <input bind:value={emailLogin} type="text" placeholder="Enter Email" name="email" required>
             <label for="psw"><strong>Password</strong></label>
             <input bind:value={passwordLogin} type="password" placeholder="Enter Password" name="psw" required>
           </div>
