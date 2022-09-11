@@ -27,6 +27,7 @@ const login = async ({
             const { data } = await apiSource.post(ApiRoutes.LOGIN, {
                 email,
                 password
+                
             });
             return data;
         }
@@ -46,6 +47,7 @@ const register = async ({
                 firstName,
                 lastName,
                 password
+               
             });
             return data;
         }

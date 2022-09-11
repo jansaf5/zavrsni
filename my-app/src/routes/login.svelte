@@ -1,5 +1,5 @@
     <script>
-      import {login,register} from "../lib/api-funtions.js";
+      import {login,register} from "../lib/apiFunctions";
       let firstName = '';
       let lastName = '';
       let emailLogin = '';
