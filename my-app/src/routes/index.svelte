@@ -29,31 +29,23 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
+
 <a href="/login">Jump to login</a>
-
-  <form form on:submit|preventDefault={newInput}>
-    
-      <input id="textName" value={name}>
-      <input id="textDays" type=number value={days} min=0 max=90>
-      <input type="submit" name="aaa" id="aaa">
-  </form>
-  
-  
-  
-
-
-
-
-
 
   <div class="sidenav">
     
-    <Fav coin={name}></Fav>
+    <Fav  coin={name}></Fav>
    </div>
 
   <div class="title">
     <p>Currently looking at {name} in the last {days} days</p>
+    <form form on:submit|preventDefault={newInput}>
     
+      <input id="textName" value={name}>
+      <input id="textDays" type=number value={days} min=0 max=90>
+      <input type="submit" value="Search">
+  </form>
+  
   </div>
 
 <div class="charts">
@@ -65,7 +57,7 @@
     <Placeholder></Placeholder>
 {/await}
 
-{#await marketVol}
+{#await marketVol}  
     <Placeholder></Placeholder>
 {:then marketVol}
     <PriceChart prices={marketVol.volume} dates={marketVol.dates} type={"bar"}/>
@@ -95,7 +87,11 @@
     </tr>
   </table>
 </div>
+<div>
+  <p id="desc">{marketData.desc}</p>
+</div>
 {/await}
+
 
 
 <style>
@@ -126,6 +122,8 @@
   background-color: #f1f1f1;
   overflow-x: hidden;
   padding-top: 20px;
+  margin-right: 20px;
+  
   
 }
 
@@ -183,5 +181,9 @@
 }
 
 label { display: flex }
-	input, p { margin: 6px }
+input, p { margin: 6px }
+
+#desc{
+  padding-left: 200px;
+}
 </style>

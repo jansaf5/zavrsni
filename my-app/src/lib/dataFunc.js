@@ -61,57 +61,62 @@ export async function fetchOtherData(name){
 }
 
 
-export async function  login({email, password}) {
+// export async function  login({email, password}) {
   
-  try {
-    post('https://jansafar-2022-07-19.herokuapp.com/v1/auth/login');
-  const {firstName, lastName, token} = response;
-  console.log(response);
-  return {firstName, lastName, token}
-} catch(error){
-  console.log(error);
-    } 
-  }
+//   try {
+//     axios.post('https://jansafar-2022-07-19.herokuapp.com/v1/auth/login',{
+//     email,
+//     password
+//     });
+//   const {firstName, lastName, token} = response;
+//   console.log(response);
+//   return {firstName, lastName, token}
+// } catch(error){
+//   console.log(error);
+//     } 
+//   }
 
-  export const register = async ({ email, password, firstName, lastName }) => {
-    try {
-        axios.post("https://cors-anywhere.herokuapp.com/https://jansafar-2022-07-19.herokuapp.com/auth/register", {
-            email,
-            password,
-            firstName,
-            lastName
-        });
-        // const { firstName, lastName, token } = response;
-        console.log(response);
-        return response;
-    } catch (error) {
-        console.log(error);
-    }
-}
+//   export async function register({ email, password, firstName, lastName }) {
+//     try {
+//         axios.post("https://jansafar-2022-07-19.herokuapp.com/auth/register", {
+//             email,
+//             password,
+//             firstName,
+//             lastName
+//         });
+//         // const { firstName, lastName, token } = response;
+//         console.log(response);
+//         return response;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// }
 
-export async function addFavourite({string}) {
+// export async function addFavourite({string}) {
   
-      try {
-        axios.post('https://jansafar-2022-07-19.herokuapp.com/favourite');
-      const {firstName, lastName, token} = response;
-      console.log(response);
-      return {firstName, lastName, token}
-    } catch(error){
-      console.log(error);
-        } 
-      }
+//       try {
+//         axios.post('https://jansafar-2022-07-19.herokuapp.com/favourite',{
+//           string
+//         });
+//       const {firstName, lastName, token} = response;
+//       console.log(response);
+//       return {firstName, lastName, token}
+//     } catch(error){
+//       console.log(error);
+//         } 
+//       }
      
-export async function removeFavourite({string}) {
+// export async function removeFavourite({string}) {
   
-        try {
-          axios.delete('https://jansafar-2022-07-19.herokuapp.com/favourite');
-        const {firstName, lastName, token} = response;
-        console.log(response);
-        return {firstName, lastName, token}
-      } catch(error){
-        console.log(error);
-          } 
-        }
+//         try {
+//           axios.delete('https://jansafar-2022-07-19.herokuapp.com/favourite');
+//         const {firstName, lastName, token} = response;
+//         console.log(response);
+//         return {firstName, lastName, token}
+//       } catch(error){
+//         console.log(error);
+//           } 
+//         }
 
 
-        //https://jansafar-2022-07-19.herokuapp.com/auth/register
+//         //https://jansafar-2022-07-19.herokuapp.com/auth/register

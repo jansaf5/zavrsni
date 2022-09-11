@@ -2,7 +2,7 @@
     export let coin;
 </script>
 
-<div>
+<div style="cursor: pointer;">
 <p>{coin}</p>
 </div>
 

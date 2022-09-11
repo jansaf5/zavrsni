@@ -1,12 +1,12 @@
     <script>
-      import {login,register} from "../lib/dataFunc.js";
+      import {login,register} from "../lib/api-funtions.js";
       let firstName = '';
       let lastName = '';
       let emailLogin = '';
       let emailSignUp = '';
       let passwordLogin = '';
       let passwordSignUp = '';
-      console.log(firstName);
+      
     </script>
 
   
