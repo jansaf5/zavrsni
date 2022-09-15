@@ -3,9 +3,10 @@
     import Placeholder from "./Placeholder.svelte";
     import {fetchPriceData,fetchVolData,fetchOtherData} from "../lib/dataFunc.js";
     import Fav from "./Fav.svelte"
+    import {addFavourite,removeFavourite,getFavourite} from "../lib/apiFunctions";
 
 
-
+    var favourites=getFavourite();
     var name="bitcoin"
     var days=30
     let marketPrice=fetchPriceData(name,days);
@@ -22,7 +23,7 @@
     
   
 }
-
+    
 
     
 </script>
@@ -34,80 +35,118 @@
 
   <div class="sidenav">
     
-    <Fav  coin={name}></Fav>
+    {#await favourites }
+      <p>Add a favourite!</p>
+      {:then favourites}
+        {#each favourites as fav}
+          <Fav coin={fav}></Fav>
+          {/each}
+        {/await}
+
    </div>
 
-  <div class="title">
-    <p>Currently looking at {name} in the last {days} days</p>
-    <form form on:submit|preventDefault={newInput}>
+  <body>
+    <div class="title">
+      <p>Currently looking at {name} in the last {days} days</p>
+      <form form on:submit|preventDefault={newInput}>
     
-      <input id="textName" value={name}>
-      <input id="textDays" type=number value={days} min=0 max=90>
-      <input type="submit" value="Search">
-  </form>
+        <input id="textName" value={name}>
+        <input id="textDays" type=number value={days} min=0 max=90>
+        <input type="submit" value="Search">
+    </form>
+    <div id="buttons">
+      <button on:click={addFavourite(name)} class="favButton" id="addFav">Add Favourite</button>
+      <button on:click={removeFavourite(name)} class="favButton" id="removeFav">Remove Favourite</button>
+    </div>
+    </div>
+    
+    <div class="charts">
+    {#await marketPrice}
+      <Placeholder></Placeholder>
+    {:then marketPrice}
+      <PriceChart prices={marketPrice.prices} dates={marketPrice.dates} type={"line"}/>
+    {:catch error}
+      <Placeholder></Placeholder>
+    {/await}
+    
+    {#await marketVol}
+      <Placeholder></Placeholder>
+    {:then marketVol}
+      <PriceChart prices={marketVol.volume} dates={marketVol.dates} type={"bar"}/>
+    {:catch error}
+      <Placeholder></Placeholder>
+    {/await}
+    </div>
+    
+    
+    {#await marketData}
+    <div></div>
+    {:then marketData}
+    <div class="data-table">
+      <div class="data">
+        <p>Coin Market Rank:{marketData.rank}</p>
+        <p>Coin Current Price:{marketData.price} USD</p>
+        <p>Coin All-Time High:{marketData.ath} USD</p>
+        <p>Coin Market Cap:{marketData.cap} USD</p>
+        <p>Coin Volume:{marketData.volume}</p>
+        
+      </div>
+      <div class="data">
+        <p>Coin ID:{marketData.id}</p>
+        <p>Coin Symbol:{marketData.symbol}</p>
+        <p>Coin Name:{marketData.symbName}</p>
+        <p>Coin Hash:{marketData.hash}</p>
+      </div>
+
   
-  </div>
-
-<div class="charts">
-{#await marketPrice}
-    <Placeholder></Placeholder>
-{:then marketPrice}
-    <PriceChart prices={marketPrice.prices} dates={marketPrice.dates} type={"line"}/>
-{:catch error}
-    <Placeholder></Placeholder>
-{/await}
-
-{#await marketVol}  
-    <Placeholder></Placeholder>
-{:then marketVol}
-    <PriceChart prices={marketVol.volume} dates={marketVol.dates} type={"bar"}/>
-{:catch error}
-    <Placeholder></Placeholder>
-{/await}
-</div>
-
-
-{#await marketData}
-<div></div>
-{:then marketData}
-<div class="data-table">
-  <table>
-    <tr>
-      <td>Coin Market Rank:{marketData.rank}</td>
-      <td>Coin Current Price:{marketData.price} USD</td>
-      <td>Coin All-Time High:{marketData.ath} USD</td>
-      <td>Coin Market Cap:{marketData.cap} USD</td>
-      <td>Coin Volume:{marketData.volume} </td>
-    </tr>
-    <tr>
-      <td>Coin ID:{marketData.id}</td>
-      <td>Coin Symbol:{marketData.symbol}</td>
-      <td>Coin Name:{marketData.symbName}</td>
-      <td>Coin Hash:{marketData.hash}</td>
-    </tr>
-  </table>
-</div>
-<div>
-  <p id="desc">{marketData.desc}</p>
-</div>
-{/await}
+    </div>
+    <div>
+    <p id="desc">{marketData.desc}</p>
+    </div>
+    {/await}
+  </body>
 
 
 
 <style>
+  body{
+    
+    padding-left: 150px;
+    
+  }
+  #addFav{
+    background-color: #6ef0c0;
+  }
+  #removeFav{
+    background-color: #f17853;
+  }
+
   .data-table{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items:center ;
-    padding-left: 200px;
     
+    
+  }
+  .data{
+    display: flex;
+    
+
+  }
+  .data p{
+    background-color: #e5e4e2;
+  border-radius: 5%;
+  padding: 5px;
+  box-shadow: 5px 5px #333;
   }
 
   .title{
     display: flex;
+    flex-direction: column;
     align-content: center;
-    justify-content: center;
     padding-left: 200px;
+    
   }
   .charts{
     margin-top: 10px;
@@ -184,6 +223,11 @@ label { display: flex }
 input, p { margin: 6px }
 
 #desc{
-  padding-left: 200px;
+  background-color: #e5e4e2;
+  border-radius: 5%;
+  padding: 15px;
+  box-shadow: 5px 10px #333;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 </style>

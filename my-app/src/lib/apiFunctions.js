@@ -6,7 +6,7 @@ const apiSource = axios.create({
 });
 
 
-//ili mozes sve napisati dolje unutar try catch bloka i ne koristiti asyncTryCatchHandler funkciju. sluzi iskljucivo kao wrapper koji hipotetski mozes iskoritit ili ubaciti u dedicated error handler klasu ili switch case ili hrpu ifova pa tocno znati sto i kako vratiti od podataka korisniku ili kakav "error" njima prikazati (ofc uvijek mozes unutar svake funkcije zasebno)
+
 async function asyncTryCatchHandler({
     tryFunc = async () => { },
     catchFunc = (e) => { console.log(e) },

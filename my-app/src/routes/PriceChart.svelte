@@ -56,7 +56,7 @@
 	canvas{
 		width: 200px;
 		height: 200px;
-		padding-left: 165px;
+		
 		max-height: 400px;
 		padding-right: 20px;
 
