@@ -72,7 +72,7 @@
     {#await marketVol}
       <Placeholder></Placeholder>
     {:then marketVol}
-      <PriceChart prices={marketVol.volume} dates={marketVol.dates} type={"bar"}/>
+      <PriceChart prices={marketVol.volumes} dates={marketVol.dates} type={"bar"}/>
     {:catch error}
       <Placeholder></Placeholder>
     {/await}

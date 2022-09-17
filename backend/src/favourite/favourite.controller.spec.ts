@@ -40,6 +40,7 @@ describe('FavouriteController', () => {
 
         const { token } = await authService.registerUser({
             ...registerDto,
+            
         });
         userToken = token;
 

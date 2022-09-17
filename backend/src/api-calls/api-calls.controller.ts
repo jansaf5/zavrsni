@@ -16,7 +16,7 @@ export class ApiCallsController {
         return response;
     }
 
-    @Get("getVolumeData")
+    @Get("getVolumeData/:name/:days")
     async getVolumeData(
         @Param("name") name: string,
         @Param("days") days: number
@@ -25,7 +25,7 @@ export class ApiCallsController {
         return response
     }
 
-    @Get("getOtherData")
+    @Get("getOtherData/:name")
     async getOtherData(
         @Param("name") name: string
     ): Promise<OtherData> {

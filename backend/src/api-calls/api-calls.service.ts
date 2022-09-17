@@ -28,8 +28,8 @@ export class ApiCallsService {
             prices.push(element[1]);
             dates.push(timeConverter(element[0]));
         });
-        const data = { name, prices, dates };
-        return data;
+        return { name, prices, dates };
+        
     }
 
     async getVolumeData(name: string, days: number): Promise<VolumeData> {
