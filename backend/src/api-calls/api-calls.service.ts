@@ -42,8 +42,8 @@ export class ApiCallsService {
              volumes.push(element[1]);
              dates.push(timeConverter(element[0]));
             });
-        let data={name,volumes,dates};
-        return data;
+        return {name,volumes,dates};
+        
       }
 
        async getOtherData(name:string):Promise<OtherData>{
@@ -59,7 +59,7 @@ export class ApiCallsService {
         let ath=obj.market_data.ath.usd;
         let cap= obj.market_data.market_cap.usd;
         let volume=obj.market_data.total_volume.usd;
-        let data={id,symbol,symbName,hash,desc,rank,price,ath,cap,volume};
-        return data;
+        return {id,symbol,symbName,hash,desc,rank,price,ath,cap,volume};
+        
       }
 }
