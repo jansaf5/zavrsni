@@ -8,7 +8,7 @@ export class ApiCallsController {
     constructor(private apiService: ApiCallsService) {}
     
 
-    @Get("getPriceData")
+    @Get("getPriceData/:name/:days")
     async getPriceData(@Param("name") name:string, @Param("days") days:number): Promise<PriceData>{
         const response= await this.apiService.getPriceData(name,days);
         return response;
