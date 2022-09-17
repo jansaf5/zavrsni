@@ -1,18 +1,18 @@
 import { PrismaService } from './../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
-import { Favourites, Prisma } from '@prisma/client';
+import { Favourite, Prisma } from '@prisma/client';
 
 @Injectable()
 export class FavouriteService {
     constructor(private prisma: PrismaService) { }
 
     async addFavourite(data: {
-        where: Prisma.UserWhereUniqueInput, createInput: Prisma.FavouritesCreateInput
+        where: Prisma.UserWhereUniqueInput, createInput: Prisma.FavouriteCreateInput
     }): Promise<boolean> {
         const { where, createInput } = data;
         const response = await this.prisma.user.update({
             data: {
-                favourites: {
+                favourite: {
                     connectOrCreate: {
                         where: {
                             name: createInput.name
@@ -30,10 +30,10 @@ export class FavouriteService {
 
     async removeFavourite(data: {
         where: Prisma.UserWhereUniqueInput,
-        favourite: Pick<Favourites, 'name'>
+        favourite: Pick<Favourite, 'name'>
     }): Promise<boolean> {
         const { where, favourite } = data;
-        const response = await this.prisma.favourites.deleteMany({
+        const response = await this.prisma.favourite.deleteMany({
             where: {
                 AND: [
                     {
@@ -50,8 +50,8 @@ export class FavouriteService {
         return response.count > 0 ? true : false;
     }
 
-    async getFavourites(where: Prisma.UserWhereUniqueInput): Promise<Favourites[]> {
-        const response = await this.prisma.favourites.findMany({
+    async getFavourites(where: Prisma.UserWhereUniqueInput): Promise<Favourite[]> {
+        const response = await this.prisma.favourite.findMany({
             where: {
                 User: {
                     some: where

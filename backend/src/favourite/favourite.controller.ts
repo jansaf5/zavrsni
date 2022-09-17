@@ -3,7 +3,7 @@ import { FavouriteService } from './favourite.service';
 import { Body, Controller, Delete, Get, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../jwt/jwt.guard';
 import { User } from '../user/user.decorator';
-import { Favourites } from '@prisma/client';
+import { Favourite } from '@prisma/client';
 import { DocsAddFavourite, DocsGetFavourites, DocsRemoveFavourite } from './favourite.controller.docs';
 import { AddFavouriteDto } from './dto-in/addFavourite.dto';
 
@@ -46,7 +46,7 @@ export class FavouriteController {
     @Get()
     async getFavourites(
         @User() user,
-    ): Promise<Favourites[]> {
+    ): Promise<Favourite[]> {
         const response = await this.favouriteService.getFavourites({ email: user.email });
         return response;
     }

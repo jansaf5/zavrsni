@@ -17,10 +17,10 @@ model User {
     email      String       @unique
     password   String
     verified   Boolean
-    favourites Favourites[]
+    favourites Favourite[]
 }
 
-model Favourites {
+model Favourite {
     id     Int    @id @default(autoincrement())
     name   String @unique
     User   User[]
