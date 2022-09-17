@@ -2,7 +2,7 @@ import axios from "axios";
 import * as ApiRoutes from './api-routes'
 
 const apiSource = axios.create({
-    baseURL: "http://localhost:9000/v1/"
+    baseURL: "http://localhost:9000/v1"
 });
 
 
@@ -35,12 +35,13 @@ const login = async ({
 }
 
 const register = async ({
-    
     firstName,
     lastName,
     email,
     password
 }) => {
+  
+    console.log(firstName,lastName,email,password);
     return await asyncTryCatchHandler({
         tryFunc: async () => {
             const  {data}  = await apiSource.post(ApiRoutes.REGISTER, {
@@ -50,6 +51,7 @@ const register = async ({
                 password
             }
             );
+            
             return data;
         }
     });
