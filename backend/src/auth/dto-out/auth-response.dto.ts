@@ -14,8 +14,5 @@ export class AuthResponseDto implements AuthResponse {
     lastName: string;
 
     @ApiProperty()
-    verified: boolean;
-
-    @ApiProperty()
     token: string;
 }

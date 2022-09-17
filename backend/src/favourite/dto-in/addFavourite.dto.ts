@@ -2,7 +2,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Prisma } from "@prisma/client";
 import { IsNotEmpty, IsString, Length } from "class-validator";
 
-type AddFavouriteType = Pick<Prisma.FavouritesCreateInput, 'name'>
+type AddFavouriteType = Pick<Prisma.FavouriteCreateInput, 'name'>
 
 export class AddFavouriteDto implements AddFavouriteType {
     @Length(3, 3, {

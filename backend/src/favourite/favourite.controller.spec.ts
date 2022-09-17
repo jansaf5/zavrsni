@@ -16,7 +16,7 @@ describe('FavouriteController', () => {
     let httpServer: HttpServer;
     let userToken: string;
 
-    let favouriteDto: Required<Omit<Prisma.FavouritesWhereUniqueInput, 'id'>> = {
+    let favouriteDto: Required<Omit<Prisma.FavouriteWhereUniqueInput, 'id'>> = {
         name: 'test',
     }
 
@@ -40,7 +40,6 @@ describe('FavouriteController', () => {
 
         const { token } = await authService.registerUser({
             ...registerDto,
-            verified: false
         });
         userToken = token;
 
@@ -100,7 +99,7 @@ describe('FavouriteController', () => {
     });
 
     afterAll(async () => {
-        await prisma.favourites.deleteMany({
+        await prisma.favourite.deleteMany({
             where: {
                 User: {
                     every: {

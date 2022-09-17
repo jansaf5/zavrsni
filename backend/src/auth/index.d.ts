@@ -3,6 +3,5 @@ interface AuthResponse {
     email: string,
     firstName: string,
     lastName: string,
-    verified: boolean,
     token: string,
 }

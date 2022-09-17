@@ -36,7 +36,6 @@ export class AuthController {
             firstName: registerDto.firstName,
             lastName: registerDto.lastName,
             password: registerDto.password,
-            verified: false,
         })
     }
 }

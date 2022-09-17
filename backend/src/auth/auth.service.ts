@@ -52,7 +52,6 @@ export class AuthService {
             email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
-            verified: user.verified,
             token
         }
         return response;

@@ -12,7 +12,7 @@ export class FavouriteService {
         const { where, createInput } = data;
         const response = await this.prisma.user.update({
             data: {
-                favourite: {
+                favourites: {
                     connectOrCreate: {
                         where: {
                             name: createInput.name

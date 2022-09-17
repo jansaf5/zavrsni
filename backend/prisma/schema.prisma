@@ -11,18 +11,16 @@ datasource db {
 }
 
 model User {
-    id         Int          @id @default(autoincrement())
+    id         Int         @id @default(autoincrement())
     firstName  String
     lastName   String
-    email      String       @unique
+    email      String      @unique
     password   String
-    verified   Boolean
     favourites Favourite[]
 }
 
 model Favourite {
-    id     Int    @id @default(autoincrement())
-    name   String @unique
-    User   User[]
-    userId Int?
+    id   Int    @id @default(autoincrement())
+    name String @unique
+    User User[]
 }
