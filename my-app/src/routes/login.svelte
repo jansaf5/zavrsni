@@ -65,44 +65,46 @@
         align-content: center;
         
     }
- </style>
+  </style>
   
-  <div class="forms">
-      <body>
-        <form form on:submit|preventDefault={register(emailSignUp,passwordSignUp,firstName,lastName)}>
-          <h1>SIGN UP</h1>
-          
-          <div class="formcontainer">
-          <div class="container">
-            <label for="uname"><strong>First Name</strong></label>
-            <input bind:value={firstName} type="text" placeholder="Enter First Name" name="FName" required>
-            <label for="uname"><strong>Last Name</strong></label>
-            <input bind:value={lastName} type="text" placeholder="Enter Last Name" name="LName" required>
-            <label for="mail"><strong>E-mail</strong></label>
-            <input bind:value={emailSignUp} type="text" placeholder="Enter E-mail" name="mail" required>
-            <label for="psw"><strong>Password</strong></label>
-            <input bind:value={passwordSignUp} type="password" placeholder="Enter Password" name="psw" required>
-          </div>
-          <button type="submit"><strong>SIGN UP</strong></button>
-      
-      
-      
-          </div>
-        </form>
-      </body>
-      <body>
-        <form form on:submit|preventDefault={login(emailLogin,passwordLogin)}>
-          <h1>LOGIN</h1>
-          <div class="formcontainer">
-          <hr/>
-          <div class="container">
-            <label for="emaill"><strong>Email</strong></label>
-            <input bind:value={emailLogin} type="text" placeholder="Enter Email" name="email" required>
-            <label for="psw"><strong>Password</strong></label>
-            <input bind:value={passwordLogin} type="password" placeholder="Enter Password" name="psw" required>
-          </div>
-          <button type="submit">Login</button>
-         
-        </form>
-      </body>
-  </div>
+  <body>
+    <div class="forms">
+        <body>
+          <form form on:submit|preventDefault={register(firstName,lastName,emailSignUp,passwordSignUp)}>
+            <h1>SIGN UP</h1>
+    
+            <div class="formcontainer">
+            <div class="container">
+              <label for="uname"><strong>First Name</strong></label>
+              <input bind:value={firstName} type="text" placeholder="Enter First Name" name="FName" required>
+              <label for="uname"><strong>Last Name</strong></label>
+              <input bind:value={lastName} type="text" placeholder="Enter Last Name" name="LName" required>
+              <label for="mail"><strong>E-mail</strong></label>
+              <input bind:value={emailSignUp} type="text" placeholder="Enter E-mail" name="mail" required>
+              <label for="psw"><strong>Password</strong></label>
+              <input bind:value={passwordSignUp} type="password" placeholder="Enter Password" name="psw" required>
+            </div>
+            <button type="submit"><strong>SIGN UP</strong></button>
+    
+    
+    
+            </div>
+          </form>
+        </body>
+        <body>
+          <form form on:submit|preventDefault={login(emailLogin,passwordLogin)}>
+            <h1>LOGIN</h1>
+            <div class="formcontainer">
+            <hr/>
+            <div class="container">
+              <label for="emaill"><strong>Email</strong></label>
+              <input bind:value={emailLogin} type="text" placeholder="Enter Email" name="email" required>
+              <label for="psw"><strong>Password</strong></label>
+              <input bind:value={passwordLogin} type="password" placeholder="Enter Password" name="psw" required>
+            </div>
+            <button type="submit">Login</button>
+            </div>
+          </form>
+        </body>
+    </div>
+  </body>

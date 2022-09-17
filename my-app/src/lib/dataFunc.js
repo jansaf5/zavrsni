@@ -19,3 +19,13 @@ export async function fetchOtherData(name){
   return promise.data;
   
 }
+
+export async function register(firstName,lastName,email,password){
+  const {data} =axios.post("http://localhost:9000/v1/auth/register/",{
+    firstName,
+    lastName,
+    email,
+    password
+  })
+  return data;
+}

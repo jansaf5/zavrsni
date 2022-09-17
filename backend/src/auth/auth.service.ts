@@ -12,6 +12,7 @@ export class AuthService {
     ) { }
 
     async registerUser(userData: Prisma.UserCreateInput): Promise<AuthResponse> {
+        console.log(userData);
         const hashedPassword = await this.hashPassword(userData.password);
         const formattedUser: Prisma.UserCreateInput = {
             ...userData,
@@ -39,7 +40,7 @@ export class AuthService {
     }
 
     async hashPassword(password: string): Promise<string> {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10); 
         return hashedPassword;
     }
 

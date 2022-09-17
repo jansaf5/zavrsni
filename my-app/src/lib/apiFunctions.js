@@ -35,20 +35,21 @@ const login = async ({
 }
 
 const register = async ({
-    email,
+    
     firstName,
     lastName,
+    email,
     password
 }) => {
     return await asyncTryCatchHandler({
         tryFunc: async () => {
-            const { data } = await apiSource.post(ApiRoutes.REGISTER, {
-                email,
+            const  {data}  = await apiSource.post(ApiRoutes.REGISTER, {
                 firstName,
                 lastName,
+                email,
                 password
-               
-            });
+            }
+            );
             return data;
         }
     });
