@@ -5,9 +5,10 @@ import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { JwtModule } from './jwt/jwt.module';
 import { FavouriteModule } from './favourite/favourite.module';
+import { ApiCallsModule } from './api-calls/api-calls.module';
 
 @Module({
-    imports: [AuthModule, UserModule, PrismaModule, JwtModule, FavouriteModule],
+    imports: [AuthModule, UserModule, PrismaModule, JwtModule, FavouriteModule, ApiCallsModule],
     providers: [PrismaService],
     exports: [],
 })
