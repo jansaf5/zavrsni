@@ -51,3 +51,14 @@
   })
 </script>
 <canvas bind:this={portfolio} width={400} height={400} />
+
+<style>
+    canvas{
+		width: 200px;
+		height: 200px;
+		
+		max-height: 400px;
+		padding-right: 20px;
+
+	}
+</style>

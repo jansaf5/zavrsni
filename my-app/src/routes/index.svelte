@@ -4,8 +4,8 @@
     import {fetchPriceData,fetchVolData,fetchOtherData} from "../lib/dataFunc.js";
     import Fav from "./Fav.svelte"
     import {addFavourite,removeFavourite,getFavourite} from "../lib/apiFunctions";
-
-
+    import {emailStore} from "../lib/store";
+    import { get } from 'svelte/store'
     var favourites=getFavourite();
     var name="bitcoin"
     var days=30
@@ -51,7 +51,7 @@
       <form form on:submit|preventDefault={newInput}>
     
         <input id="textName" value={name}>
-        <input id="textDays" type=number value={days} min=0 max=90>
+        <input id="textDays" type=number value={days} min=2 max=365>
         <input type="submit" value="Search">
     </form>
     <div id="buttons">
@@ -66,6 +66,10 @@
     {:then marketPrice}
       <PriceChart prices={marketPrice.prices} dates={marketPrice.dates} type={"line"}/>
     {:catch error}
+      <div class="er-header">
+        <h1>No cryptocurrency found with this name</h1>
+        <h2>Check if you typed in the correct name</h2>
+      </div>
       <Placeholder></Placeholder>
     {/await}
     
@@ -74,6 +78,7 @@
     {:then marketVol}
       <PriceChart prices={marketVol.volumes} dates={marketVol.dates} type={"bar"}/>
     {:catch error}
+      
       <Placeholder></Placeholder>
     {/await}
     </div>
@@ -103,12 +108,23 @@
     <div>
     <p id="desc">{marketData.desc}</p>
     </div>
+    {:catch error}
+    <div class="er-header">
+      <h2>No data here either</h2>
+    </div>
     {/await}
   </body>
 
 
 
 <style>
+  .er-header{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+  }
   body{
     
     padding-left: 150px;
@@ -145,8 +161,8 @@
     display: flex;
     flex-direction: column;
     align-content: center;
-    padding-left: 200px;
     
+    text-align: center;
   }
   .charts{
     margin-top: 10px;
