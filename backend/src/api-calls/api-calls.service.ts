@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OtherData, PriceData, VolumeData } from './interfaces';
 import axios from 'axios';
+import { catchError } from 'rxjs';
 
 function timeConverter(UNIX_timestamp) {
     let a = new Date(UNIX_timestamp);
@@ -11,10 +12,14 @@ function timeConverter(UNIX_timestamp) {
     let time = date + '/' + month + '/' + year;
     return time;
 }
-
+const api_key=process.env.API_KEY;
 const coinHttp = axios.create({
-    baseURL: process.env.COIN_API_URI || "https://api.coingecko.com/api/v3/coins/"
+    baseURL: process.env.COIN_API_URI || "https://api.coingecko.com/api/v3/coins/",
+    headers: {'x-cg-demo-api-key':api_key}
+
 });
+
+
 
 @Injectable()
 export class ApiCallsService {
@@ -28,6 +33,8 @@ export class ApiCallsService {
             prices.push(element[1]);
             dates.push(timeConverter(element[0]));
         });
+        console.log({name, prices, dates});
+       
         return { name, prices, dates };
         
     }

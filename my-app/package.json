@@ -29,6 +29,7 @@
 		"fusioncharts": "^3.19.0",
 		"svelte-chartjs": "^2.0.1",
 		"svelte-fusioncharts": "^1.0.0",
-		"svelte-local-storage-store": "^0.3.1"
+		"svelte-local-storage-store": "^0.3.1",
+		"svelte-spa-router": "^3.3.0"
 	}
 }

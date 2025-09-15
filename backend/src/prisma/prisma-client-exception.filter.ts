@@ -18,7 +18,7 @@ export class PrismaClientExceptionFilter extends BaseExceptionFilter {
         switch (exception.code) {
 
             //Common
-            case 'P1000'
+            case   'P1000'
                 || 'P1001'
                 || 'P1003'
                 || 'P1008'

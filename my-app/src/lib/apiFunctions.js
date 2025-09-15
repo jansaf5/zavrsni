@@ -1,6 +1,9 @@
 import axios from "axios";
 import * as ApiRoutes from './api-routes'
 
+
+
+
 const apiSource = axios.create({
     baseURL: "http://localhost:9000/v1"
 });
@@ -29,6 +32,7 @@ const login = async ({
                 password
                 
             });
+            console.log(data);
             return data;
         }
     });
@@ -40,7 +44,6 @@ const register = async ({
     email,
     password
 }) => {
-  
     console.log(firstName,lastName,email,password);
     return await asyncTryCatchHandler({
         tryFunc: async () => {
@@ -51,46 +54,54 @@ const register = async ({
                 password
             }
             );
-            
+
             return data;
         }
     });
 }
 
-const addFavourite = async ({
-    name
-}) => {
-    return await asyncTryCatchHandler({
-        tryFunc: async () => {
-            const { data } = await apiSource.post(ApiRoutes.FAVOURITE, {
-                name
-            });
-            return data;
-        }
-    });
-}
 
-const removeFavourite = async ({
-    name
-}) => {
+
+
+const addFavourite = async ({ name }) => {
     return await asyncTryCatchHandler({
         tryFunc: async () => {
-            const { data } = await apiSource.delete(ApiRoutes.FAVOURITE, {
-                name
-            });
+            const { data } = await apiSource.post(
+                ApiRoutes.FAVOURITE,
+                { name },
+                
+            );
             return data;
         }
     });
-}
+};
+
+const removeFavourite = async ({ name }) => {
+    return await asyncTryCatchHandler({
+        tryFunc: async () => {
+            const { data } = await apiSource.delete(
+                ApiRoutes.FAVOURITE,
+                {
+                    data: { name },
+                    
+                }
+            );
+            return data;
+        }
+    });
+};
 
 const getFavourite = async () => {
     return await asyncTryCatchHandler({
         tryFunc: async () => {
-            const { data } = await apiSource.get(ApiRoutes.FAVOURITE);
+            const { data } = await apiSource.get(
+                ApiRoutes.FAVOURITE,
+                
+            );
             return data;
         }
     });
-}
+};
 
 export {
     login,
