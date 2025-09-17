@@ -2,18 +2,53 @@
 	import { onMount } from 'svelte';
 	import Chart from 'chart.js/auto/auto.js';
 	export let prices,dates,type;
+	import {simpleMovingAverage,exponentialMovingAverage,generateSignalPoints} from "../lib/dataFunc.js";
+
+	let { buyPoints, sellPoints } = generateSignalPoints(prices, dates);
 	
 	let portfolio;
 	const data = {
 		  labels: dates,
 		  datasets: [
 			  {
-				  
+				  label:"Prices",
 				  data: prices,
 				  backgroundColor: ['#7000e1', '#fc8800', '#00b0e8'],
 				  // hoverOffset: 4,
 				  
-			  }
+			  },
+			  {
+				label:"SMA",
+				data: simpleMovingAverage(prices,dates),
+				borderColor:"#800080",
+				hidden:true,
+				borderRadius:10,
+				radius:1,
+			  },
+
+			  {
+				label:"EMA",
+				data: exponentialMovingAverage(prices),
+				borderColor:"#0000FF",
+				hidden:true,
+				borderRadius:10,
+				radius:1,
+			  },
+			   {
+				label:"Buy Signals",
+				data: buyPoints,
+				borderColor:"#00FF00",
+				type:"scatter",
+				pointradius:6,
+			},
+			{
+				label:"Sell Signals",
+				data: sellPoints,
+				borderColor:"#FF0000",
+				type:"scatter",
+				pointradius:10,
+				
+			}
 		  ]
 	  };
 	  const config = {
@@ -27,7 +62,7 @@
 			  plugins: {
 				  legend: {
 					  position: 'bottom',
-					  display: false,
+					  display: true,
 					  labels: {
 						  usePointStyle: true,
 						  padding: 20,

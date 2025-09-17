@@ -1,11 +1,13 @@
 <script>
     import PriceChart from "./PriceChart.svelte"
     import Placeholder from "./Placeholder.svelte";
+    import RsiChart from "./rsiChart.svelte";
     import {fetchPriceData,fetchVolData,fetchOtherData} from "../lib/dataFunc.js";
     import Fav from "./Fav.svelte"
     import {addFavourite,removeFavourite,getFavourite} from "../lib/apiFunctions";
     
     import { get } from 'svelte/store'
+	import VolumeChart from "./VolumeChart.svelte";
     var favourites=getFavourite();
     var name="bitcoin"
     var days=30
@@ -72,11 +74,19 @@
       </div>
       <Placeholder></Placeholder>
     {/await}
+
+    {#await marketPrice}
+      <Placeholder></Placeholder>
+    {:then marketPrice}
+      <RsiChart prices={marketPrice.prices} dates={marketPrice.dates} type={"line"}/>
+    {:catch error}
+      <Placeholder></Placeholder>
+    {/await}
     
     {#await marketVol}
       <Placeholder></Placeholder>
     {:then marketVol}
-      <PriceChart prices={marketVol.volumes} dates={marketVol.dates} type={"bar"}/>
+      <VolumeChart volumes={marketVol.volumes} dates={marketVol.dates} type={"bar"}/>
     {:catch error}
       
       <Placeholder></Placeholder>
