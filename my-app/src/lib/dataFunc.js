@@ -62,57 +62,130 @@ export function rsi(prices, period = 14) {
 
 
 
-export function simpleMovingAverage(prices) {
-    let sma = [];
-    let sum = 0;
+// export function simpleMovingAverage(prices) {
+//     let sma = [];
+//     let sum = 0;
 
-    for (let i = 0; i < prices.length; i++) {
-        sum += prices[i];
-        sma.push(sum / (i + 1)); }
+//     for (let i = 0; i < prices.length; i++) {
+//         sum += prices[i];
+//         sma.push(sum / (i + 1)); }
 
-    return sma;
-}
+//     return sma;
+// }
 
-export function exponentialMovingAverage(prices, smoothing = 2) {
-    if (!prices || prices.length === 0) return [];
+// export function exponentialMovingAverage(prices, smoothing = 0.25) {
+//     if (!prices || prices.length === 0) return [];
 
-    let ema = [];
-    ema[0] = prices[0]; 
+//     let ema = [];
+//     ema[0] = prices[0]; 
 
    
-    for (let i = 1; i < prices.length; i++) {
-        ema[i] = (prices[i] - ema[i - 1]) * (smoothing / (i + 1)) + ema[i - 1];
-    }
+//     for (let i = 1; i < prices.length; i++) {
+//         ema[i] = (prices[i] - ema[i - 1]) * (smoothing / (i + 1)) + ema[i - 1];
+//     }
 
-    return ema;
+//     return ema;
+// }
+
+export function simpleMovingAverage(prices, period = 14) {
+  if (!prices || prices.length === 0) return [];
+
+  let sma = [];
+  let sum = 0;
+
+  for (let i = 0; i < prices.length; i++) {
+    sum += prices[i];
+
+    if (i < period - 1) {
+      sma.push(sum / (i + 1));
+    } else {
+      if (i >= period) {
+        sum -= prices[i - period];
+      }
+      sma.push(sum / period);
+    }
+  }
+  console.log(sma);
+  return sma;
 }
+
+
+export function exponentialMovingAverage(prices, smoothing = 0.33) {
+  if (!prices || prices.length === 0) return [];
+
+  let ema = [];
+  ema[0] = prices[0]; 
+
+  for (let i = 1; i < prices.length; i++) {
+    ema[i] = prices[i] * smoothing + ema[i - 1] * (1 - smoothing);
+  }
+
+  return ema;
+}
+
+// // export function generateSignalPoints(prices, dates, rsiBuyThreshold = 40, rsiSellThreshold = 60) {
+// //   const rsiValues = rsi(prices);
+// //   const smaValues = simpleMovingAverage(prices);
+// //   const emaValues = exponentialMovingAverage(prices);
+
+// //   const buyPoints = [];
+// //   const sellPoints = [];
+
+// //   for (let i = 0; i < prices.length; i++) {
+// //     if (rsiValues[i] !== null && smaValues[i] !== null && emaValues[i] !== null) {
+// //       const price = prices[i];
+// //       const date = dates[i];
+
+// //       const buy = rsiValues[i] < rsiBuyThreshold && price > smaValues[i] && price > emaValues[i];
+// //       const sell = rsiValues[i] > rsiSellThreshold && (price < smaValues[i] || price < emaValues[i]);
+
+// //       if (buy){ 
+// //         buyPoints.push(date);
+// //         sellPoints.push(null);
+// //       }
+// //       if (sell){ 
+// //         sellPoints.push(date );
+// //         buyPoints.push(null);
+// //       }
+// //     }
+// //   }
+
+//   return { buyPoints, sellPoints };
+// }
 
 export function generateSignalPoints(prices, dates, rsiBuyThreshold = 30, rsiSellThreshold = 70) {
   const rsiValues = rsi(prices);
   const smaValues = simpleMovingAverage(prices);
   const emaValues = exponentialMovingAverage(prices);
-
-  const buyPoints = [];
-  const sellPoints = [];
-
+  const buyPoints = { prices: [], dates: [] };
+  const sellPoints = { prices: [], dates: [] };
   for (let i = 0; i < prices.length; i++) {
     if (rsiValues[i] !== null && smaValues[i] !== null && emaValues[i] !== null) {
       const price = prices[i];
       const date = dates[i];
-
       const buy = rsiValues[i] < rsiBuyThreshold && price > smaValues[i] && price > emaValues[i];
       const sell = rsiValues[i] > rsiSellThreshold && (price < smaValues[i] || price < emaValues[i]);
-
-      if (buy){ 
-        buyPoints.push(price);
-        sellPoints.push(null);
+      if (buy) {
+        buyPoints.prices.push(price);
+        buyPoints.dates.push(date);
+      } else {
+        buyPoints.prices.push(null);
+        buyPoints.dates.push(null);
       }
-      if (sell){ 
-        sellPoints.push(price );
-        buyPoints.push(null);
+      if (sell) {
+        sellPoints.prices.push(price);
+        sellPoints.dates.push(date);
+      } else {
+        sellPoints.prices.push(null);
+        sellPoints.dates.push(null);
       }
     }
+    else{
+      buyPoints.prices.push(null);
+        buyPoints.dates.push(null);
+        sellPoints.prices.push(null);
+        sellPoints.dates.push(null);
+    }
   }
-
   return { buyPoints, sellPoints };
 }

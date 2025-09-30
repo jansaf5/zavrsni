@@ -1,10 +1,17 @@
 <script>
 	import { onMount } from 'svelte';
+	import annotationPlugin from 'chartjs-plugin-annotation';
 	import Chart from 'chart.js/auto/auto.js';
 	export let prices,dates,type;
 	import {simpleMovingAverage,exponentialMovingAverage,generateSignalPoints} from "../lib/dataFunc.js";
+	Chart.register(annotationPlugin);
 
 	let { buyPoints, sellPoints } = generateSignalPoints(prices, dates);
+
+	
+
+
+
 	
 	let portfolio;
 	const data = {
@@ -19,7 +26,7 @@
 			  },
 			  {
 				label:"SMA",
-				data: simpleMovingAverage(prices,dates),
+				data: simpleMovingAverage(prices),
 				borderColor:"#800080",
 				hidden:true,
 				borderRadius:10,
@@ -36,19 +43,22 @@
 			  },
 			   {
 				label:"Buy Signals",
-				data: buyPoints,
+				data: buyPoints.prices,
 				borderColor:"#00FF00",
 				type:"scatter",
-				pointradius:6,
+				radius:15,
+				pointStyle:"triangle",
 			},
 			{
 				label:"Sell Signals",
-				data: sellPoints,
+				data: sellPoints.prices,
 				borderColor:"#FF0000",
 				type:"scatter",
-				pointradius:10,
+				radius:15,
+				pointStyle:"triangle",
 				
 			}
+			
 		  ]
 	  };
 	  const config = {
@@ -75,9 +85,13 @@
 					  display: false
 					  
 				  }
+				  
+
 			  }
 		  }
-	  };
+			
+      }
+	  
 	onMount(()=> {
 	  const ctx = portfolio.getContext('2d');
 	  // Initialize chart using default config set
